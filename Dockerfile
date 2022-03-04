@@ -9,18 +9,26 @@ WORKDIR /crontab-ui
 LABEL maintainer "@alseambusher"
 LABEL description "Crontab-UI docker"
 
+RUN apt-get update --fix-missing
+RUN apt-get install -y build-essential libssl-dev
+
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y tzdata
+RUN apt-get install -y tzdata
 
 RUN  apt-get update && apt-get install -y \
       wget \
       curl \
-      nodejs \
-      npm \
       supervisor \
       cron \
       systemd
+
+
+# Installing Node
+SHELL ["/bin/bash", "--login", "-i", "-c"]
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+RUN source /root/.bashrc && nvm install 16.14.0
+SHELL ["/bin/bash", "--login", "-c"]
 
 
 RUN systemctl enable cron
