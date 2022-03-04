@@ -1,18 +1,14 @@
 # docker run -d -p 8000:8000 alseambusher/crontab-ui
 FROM ubuntu:18.04
 
+# replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-ENV CRON_PATH=/var/spool/cron/crontabs
-
-RUN  mkdir /crontab-ui;
-WORKDIR /crontab-ui
-
-LABEL maintainer "@alseambusher"
-LABEL description "Crontab-UI docker"
-
-RUN apt-get update --fix-missing
-RUN apt-get install -y build-essential libssl-dev
+# update the repository sources list
+# and install dependencies
+RUN apt-get update \
+    && apt-get install -y curl \
+    && apt-get -y autoclean
 
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
@@ -28,9 +24,9 @@ RUN  apt-get update && apt-get install -y \
 RUN systemctl enable cron
 RUN echo ALL >> /etc/cron.allow
 
-# Installing Node
-ENV NVM_DIR /root/.nvm
-ENV NODE_VERSION stable
+# nvm environment variables
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 14.16.0
 
 # install nvm
 # https://github.com/creationix/nvm#install-script
@@ -57,6 +53,10 @@ RUN echo latest > ~/TEST_VERSION
 RUN node -v
 RUN npm -v
 
+
+ENV CRON_PATH=/var/spool/cron/crontabs
+RUN  mkdir /crontab-ui;
+WORKDIR /crontab-ui
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY . /crontab-ui
