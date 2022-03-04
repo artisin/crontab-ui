@@ -1,5 +1,5 @@
 # docker run -d -p 8000:8000 alseambusher/crontab-ui
-FROM ubuntu:18.04
+FROM debian:latest
 
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -14,7 +14,7 @@ ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get install -y tzdata
 
-RUN  apt-get update && apt-get install -y \
+RUN  apt-get install -y \
       wget \
       curl \
       supervisor \
