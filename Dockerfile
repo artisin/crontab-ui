@@ -7,8 +7,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # update the repository sources list
 # and install dependencies
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt-get update && apt-get install -y \
       curl \
       wget \
       curl \
@@ -16,7 +15,7 @@ RUN apt-get update \
       cron \
       vim \
       systemd
-    && apt-get -y autoclean
+RUN apt-get -y autoclean
 
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
