@@ -3,7 +3,9 @@ FROM ubuntu:18.04
 
 ENV   CRON_PATH /etc/crontabs
 
-RUN   mkdir /crontab-ui; touch $CRON_PATH/root; chmod +x $CRON_PATH/root
+RUN mkdir /crontab-ui
+RUN touch $CRON_PATH/root
+RUN chmod +x $CRON_PATH/root
 
 WORKDIR /crontab-ui
 
