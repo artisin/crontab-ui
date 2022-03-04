@@ -1,11 +1,10 @@
 # docker run -d -p 8000:8000 alseambusher/crontab-ui
 FROM ubuntu:18.04
 
-ENV   CRON_PATH /etc/crontabs
 
 RUN mkdir /crontab-ui
-RUN touch $CRON_PATH/root
-RUN chmod +x $CRON_PATH/root
+RUN touch /etc/crontabs/root
+RUN chmod +x /etc/crontabs/root
 
 WORKDIR /crontab-ui
 
