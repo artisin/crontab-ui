@@ -18,7 +18,7 @@ RUN   apk --no-cache add \
       supervisor \
       tzdata
 
-COPY supervisord.conf /etc/supervisord.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY . /crontab-ui
 
 RUN   npm install
@@ -31,6 +31,4 @@ ENV   CRON_IN_DOCKER true
 
 EXPOSE $PORT
 
-RUN echo user=root >>  /etc/supervisor/supervisord.conf
-
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["supervisord", "-n"]
