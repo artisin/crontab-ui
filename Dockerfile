@@ -25,11 +25,14 @@ RUN  apt-get update && apt-get install -y \
 
 
 # Installing Node
-SHELL ["/bin/bash", "--login", "-i", "-c"]
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-RUN source /root/.bashrc && nvm install 16.14.0
-SHELL ["/bin/bash", "--login", "-c"]
 
+ENV NVM_DIR /root/.nvm
+ENV NODE_VERSION 16.13.0
+
+# Install nvm with node and npm
+RUN curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash \
+  && . $NVM_DIR/nvm.sh \ 
+  && nvm install $NODE_VERSION
 
 RUN systemctl enable cron
 RUN echo ALL >> /etc/cron.allow
