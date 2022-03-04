@@ -4,17 +4,19 @@ FROM debian:latest
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+
 # update the repository sources list
 # and install dependencies
-RUN  apt-get update && apt-get install -y \
-      git \
+RUN apt-get update \
+    && apt-get install -y \
+      curl \
       wget \
       curl \
       supervisor \
       cron \
-      systemd \
-      autoclean \
-      vim
+      vim \
+      systemd
+    && apt-get -y autoclean
 
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
