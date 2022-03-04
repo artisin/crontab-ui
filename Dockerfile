@@ -31,4 +31,6 @@ ENV   CRON_IN_DOCKER true
 
 EXPOSE $PORT
 
+RUN echo user=root >>  /etc/supervisor/supervisord.conf
+
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
