@@ -71,6 +71,8 @@ ENV   CRON_IN_DOCKER true
 
 EXPOSE $PORT
 
+# Disable the invariant mode (set in base image)
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 
 CMD ["supervisord", "-n"]
