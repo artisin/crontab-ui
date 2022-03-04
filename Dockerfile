@@ -32,16 +32,16 @@ RUN echo ALL >> /etc/cron.allow
 ENV NVM_DIR /root/.nvm
 ENV NODE_VERSION stable
 
-# Install nvm
-RUN git clone https://github.com/creationix/nvm.git $NVM_DIR && \
-    cd $NVM_DIR && \
-    git checkout `git describe --abbrev=0 --tags`
+# install nvm
+# https://github.com/creationix/nvm#install-script
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 
-# Install default version of Node.js
-RUN source $NVM_DIR/nvm.sh && \
-    nvm install $NODE_VERSION && \
-    nvm alias default $NODE_VERSION && \
-    nvm use default
+ install node, npm and yarn
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default \
+    && npm install --global yarn@1.22.10
 
 # Add nvm.sh to .bashrc for startup...
 RUN echo "source ${NVM_DIR}/nvm.sh" > $HOME/.bashrc && \
