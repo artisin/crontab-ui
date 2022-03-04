@@ -9,15 +9,19 @@ WORKDIR /crontab-ui
 LABEL maintainer "@alseambusher"
 LABEL description "Crontab-UI docker"
 
+ENV TZ=America/New_York
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y tzdata
+
 RUN  apt-get update && apt-get install -y \
       wget \
       curl \
       nodejs \
       npm \
       supervisor \
-      tzdata \
       cron \
       systemd
+
 
 RUN systemctl enable cron
 RUN echo ALL >> /etc/cron.allow
