@@ -9,8 +9,7 @@ WORKDIR /crontab-ui
 LABEL maintainer "@alseambusher"
 LABEL description "Crontab-UI docker"
 
-RUN  apt-get update
-RUN  apt-get install \
+RUN  apt-get update && apt-get install -y \
       wget \
       curl \
       nodejs \
