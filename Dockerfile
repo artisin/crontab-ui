@@ -14,8 +14,7 @@ RUN  apt-get update && apt-get install -y \
       cron \
       systemd \
       autoclean \
-      vim && \
-     rm -rf /var/lib/apt/lists/*
+      vim
 
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
